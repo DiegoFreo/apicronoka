@@ -12,7 +12,7 @@ const Usuario = require('./models/usuario');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3030;
+const port = 3330;
 
 app.use(cors());
 app.use(express.json());
