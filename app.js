@@ -11,8 +11,9 @@ const Usuario = require('./models/usuario');
 
 const express = require('express');
 const cors = require('cors');
+const serverless = require('serverless-http');
 const app = express();
-const port = 3330;
+//const port = 3330;
 
 app.use(cors());
 app.use(express.json());
@@ -30,6 +31,10 @@ const routes = require('./routes/routes');
 app.use('/api', routes);
 
 
+/*
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
-});
+});*/
+
+
+module.exports = serverless(app);
