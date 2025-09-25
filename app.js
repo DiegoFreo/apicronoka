@@ -63,7 +63,7 @@ conectarDB.then(() => {
     console.log('Banco de dados conectado');
 }).catch(err => {
     console.error('Erro ao conectar ao banco de dados', err);
-    process.exit(1);
+    //process.exit(1);
 });
 
 // Importa as rotas
