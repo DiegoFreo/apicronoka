@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -13,3 +14,20 @@ require('dotenv').config();
   }
    
   module.exports = main();
+  */
+ let isConnected = false;
+
+async function main() {
+  if (isConnected) return mongoose;
+
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    isConnected = true;
+    console.log('MongoDB conectado');
+    return mongoose;
+  } catch (err) {
+    console.error('Erro ao conectar ao MongoDB:', err);
+    return null;
+  }
+}
+module.exports = main();
