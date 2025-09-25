@@ -22,7 +22,7 @@ async function main() {
   mongoose.set('bufferCommands', false);
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URL);
     isConnected = true;
     console.log('MongoDB conectado');
     return mongoose;
