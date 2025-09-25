@@ -48,11 +48,12 @@ require('./models/bateria');
 require('./models/volta');
 require('dotenv').config();
 
-const Usuario = require('./models/usuario');
+//const Usuario = require('./models/usuario');
 
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
+const port = 3330;
 const app = express();
 
 app.use(cors());
@@ -69,5 +70,7 @@ conectarDB.then(() => {
 // Importa as rotas
 const routes = require('./routes/routes');
 app.use('/api', routes);
+
+
 
 module.exports = serverless(app);

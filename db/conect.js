@@ -19,6 +19,7 @@ require('dotenv').config();
 
 async function main() {
   if (isConnected) return mongoose;
+  mongoose.set('bufferCommands', false);
 
   try {
     await mongoose.connect(process.env.MONGODB_URI);
