@@ -39,13 +39,14 @@ app.listen(port, () => {
 
 module.exports = serverless(app);
 */
-
+/*
 require('./models/piloto');
 require('./models/usuario');
 require('./models/categoria');
 require('./models/evento');
 require('./models/bateria');
 require('./models/volta');
+*/
 require('dotenv').config();
 
 //const Usuario = require('./models/usuario');
@@ -53,7 +54,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const port = 3330;
 const app = express();
 
 app.use(cors());
