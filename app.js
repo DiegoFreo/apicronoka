@@ -39,9 +39,9 @@ app.listen(port, () => {
 
 module.exports = serverless(app);
 */
-
-require('./models/piloto');
 /*
+require('./models/piloto');
+
 require('./models/usuario');
 require('./models/categoria');
 require('./models/evento');
