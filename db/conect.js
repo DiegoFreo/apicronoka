@@ -1,15 +1,21 @@
-
 const mongoose = require('mongoose');
 require('dotenv').config();
 
- let isConnected = false;
+let isConnected = false;
 
 async function main() {
-  if (isConnected) return mongoose;
-  //mongoose.set('bufferCommands', false);
+  if (!process.env.MONGODB_URI) {
+    console.error('MONGODB_URI não está definida');
+    return null;
+  }
+
+  if (mongoose.connection.readyState >= 1) {
+    isConnected = true;
+    return mongoose;
+  }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI || process.env.MONGODB_URL, {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -21,4 +27,6 @@ async function main() {
     return null;
   }
 }
-module.exports = main();
+
+module.exports = main;
+

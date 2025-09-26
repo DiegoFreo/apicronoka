@@ -78,6 +78,8 @@ app.use(async (req, res, next) => {
   }
   next();
 });
+app.use(express.json({ limit: '1mb' }));
+
 /*
 app.listen(3330, () => {
   console.log('Server running on port 3330');
