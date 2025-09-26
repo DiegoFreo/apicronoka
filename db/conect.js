@@ -9,7 +9,10 @@ async function main() {
   //mongoose.set('bufferCommands', false);
 
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URI || process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     isConnected = true;
     console.log('MongoDB conectado');
     return mongoose;

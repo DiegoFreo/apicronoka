@@ -55,6 +55,7 @@ const serverless = require('serverless-http');
 const conectarDB = require('./db/conect');
 const app = express();
 
+
 app.use(cors());
 app.use(express.json());
 
@@ -77,6 +78,9 @@ app.use(async (req, res, next) => {
   }
   next();
 });
-
+/*
+app.listen(3330, () => {
+  console.log('Server running on port 3330');
+});*/
 
 module.exports = serverless(app);
