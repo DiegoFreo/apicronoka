@@ -28,5 +28,5 @@ async function main() {
   }
 }
 
-module.exports ={main, isConnected};
+module.exports = main();
 
