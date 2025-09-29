@@ -82,8 +82,8 @@ app.use(async (req, res, next) => {
 app.use(express.json({ limit: '1mb' }));
 
 
-app.listen(3330, () => {
-  console.log('Server running on port 3330');
+app.listen(3030, () => {
+  console.log('Server running on port 3030');
 });
 
 module.exports = serverless(app);
