@@ -46,8 +46,8 @@ try {
   
 }
 
-module.exports = conectarDB();
-  
+module.exports = conectarDB;
+
 
 /*
 const mongoose = require('mongoose');
