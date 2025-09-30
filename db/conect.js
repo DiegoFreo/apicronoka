@@ -1,44 +1,53 @@
+
 const mongoose = require('mongoose');
 require('dotenv').config();
-global.mongoose = mongoose || {conn: null, promise: null};
+
+global.mongoose = mongoose || {conn:null, promise: null}; // Torna mongoose globalmente acessível
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+  throw new Error(
+    'Por favor, defina a variável de ambiente MONGODB_URI. ' +
+    'Ela deve estar no formato: mongodb+srv://<user>:<password>@<cluster-url>/<db-name>?retryWrites=true&w=majority'
+  );
 }
 
 async function conectarDB() {
-  const cacheado = global.mongoose;
-  if (cacheado.conn) {
-    return cacheado.conn;
+  const cached = global.mongoose;
+  if (cached.conn) {
+    console.log('Utilizando conexão MongoDB cacheada.');
+    return cached.conn;
   }
-  if (cacheado.promise) {
-      const opts = {
-        maxPoolSize: 5,
-        minPoolsize: 1,
-        bufferCommands: false,
-        bufferMaxEntries: 0,
-        ServerSelectionTimeoutMS: 5000,
-      };
-      cacheado.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-        return mongoose;
-      }).catch((err) => {
-        global.mongoose.promise = null;
-        console.error('Erro ao conectar ao MongoDB:', err);
-        throw err;
-      });
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      maxPoolSize: 5, // Limita o número máximo de conexões no pool
+      serverSelectionTimeoutMS: 5000, // Tempo limite para seleção do servidor
+      minPoolSize: 1, // Mantém pelo menos uma conexão aberta
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('Nova conexão MongoDB estabelecida.');
+      return mongoose;
+    }).catch(err => {
+      cached.promise = null; // Reseta a promise em caso de erro
+      throw err;
+    });
   }
-  try {
-    cacheado.conn = await cacheado.promise;
+
+try {
+    cached.conn = await cached.promise;
   } catch (err) {
-    cacheado.promise = null;
+    cached.promise = null; // Reseta a promise em caso de erro
     throw err;
-  } 
-  return cacheado.conn;
- 
+  }
+  return cached.conn;
+  
 }
-module.exports = conectarDB;
+
+module.exports = conectarDB();
+  
 
 /*
 const mongoose = require('mongoose');
@@ -68,5 +77,6 @@ async function main() {
   }
 }
 
-module.exports = main();*/
+module.exports = main();
+*/
 

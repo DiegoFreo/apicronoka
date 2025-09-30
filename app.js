@@ -48,42 +48,45 @@ require('./models/evento');
 require('./models/bateria');
 require('./models/volta');
 */
+
+// Carrega as variáveis de ambiente do arquivo .env
+
 require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const conectarDB = require('./db/conect');
+const conectarDB = require('./db/conect.js');
 const app = express();
+// Importa as rotas
+const routes = require('./routes/routes');
 
 
 app.use(cors());
-app.use(express.json());
-
-
-// Importa as rotas
-const routes = require('./routes/routes');
-app.use('/api', routes);
-let dbConectado = false;
-
-app.use(async (req, res, next) => {
-  if (!dbConectado) {
-    try {
-      await conectarDB;
-      dbConectado = true;
-      console.log('Banco de dados conectado');
-    } catch (err) {
-      console.error('Erro ao conectar ao banco de dados', err);
-      return res.status(500).json({ error: 'Erro ao conectar ao banco de dados' });
-    }
-  }
-  next();
-});
 app.use(express.json({ limit: '1mb' }));
 
 
+
+
+app.use(async (req, res, next) => {
+  
+    try {
+      await conectarDB();
+      console.log('Banco de dados conectado');
+    } catch (err) {
+      console.error('Erro ao conectar ao banco de dados', err);
+      return res.status(503).json({ error: 'Serviço Indisponível', details: err.message });
+    }
+  next();
+});
+app.use('/api', routes);
+
+
+/*
 app.listen(3030, () => {
   console.log('Server running on port 3030');
 });
+*/
 
 module.exports = serverless(app);
+
