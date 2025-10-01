@@ -48,7 +48,7 @@ try {
   
 }
 
-module.exports = conectarDB();
+module.exports = conectarDB;
 
 
 /*
