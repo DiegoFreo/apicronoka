@@ -55,7 +55,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const conectarDB = require('./db/conect.js');
+const conectarDB = require('./db/conect');
 const app = express();
 // Importa as rotas
 const routes = require('./routes/routes');
