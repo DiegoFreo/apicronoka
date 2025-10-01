@@ -24,7 +24,7 @@ async function conectarDB() {
       bufferCommands: false,
       maxPoolSize: 5, // Limita o número máximo de conexões no pool
       serverSelectionTimeoutMS: 30000, // Tempo limite para seleção do servidor
-      socktTimeoutMS: 45000, // Tempo limite para o socket
+      socketTimeoutMS: 45000, // Tempo limite para o socket
       autoIndex: true, // Cria índices automaticamente (útil para desenvolvimento)
       useNewUrlParser: true,
       useUnifiedTopology: true,
