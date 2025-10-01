@@ -1,4 +1,8 @@
-const rotas = require('express').Router();
+import express from 'express';
+
+const rotas = express.Router();
+
+//const rotas = require('express').Router();
 
 const { criarTag, listarTags, atualizarTag, deletarTag } = require('../controllers/tagsController');
 // Rotas para Tag

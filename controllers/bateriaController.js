@@ -1,4 +1,6 @@
-const Bateria = require('../models/bateria');
+import Bateria from '../models/bateria.js';
+
+//const Bateria = require('../models/bateria');
 // Criar uma nova bateria
 async function criarBateria(req, res) {
     try {

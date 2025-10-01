@@ -1,4 +1,7 @@
-const rotas = require('express').Router();
+import express from 'express';
+
+const rotas = express.Router();
+//const rotas = require('express').Router();
 const { criarEvento, listarEventos, atualizarEvento, deletarEvento } = require('../controllers/eventoController');
 // Rotas para Evento
 rotas.post('/evento', criarEvento);

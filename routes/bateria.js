@@ -1,4 +1,7 @@
-const rotas = require('express').Router();
+import express from 'express';
+
+const rotas = express.Router();
+//const rotas = require('express').Router();
 const { criarBateria, listarBaterias, atualizarBateria, deletarBateria } = require('../controllers/bateriaController');
 // Rotas para Bateria
 rotas.post('/bateria', criarBateria);

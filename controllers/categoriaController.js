@@ -1,4 +1,6 @@
-const Categoria = require('../models/categoria');
+import Categoria from '../models/categoria.js';
+
+//const Categoria = require('../models/categoria');
 // Criar uma nova categoria
 async function criarCategoria(req, res) {
     try {

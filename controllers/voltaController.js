@@ -1,4 +1,6 @@
-const Volta = require('../models/volta');
+
+import Volta from '../models/volta.js';
+//const Volta = require('../models/volta');
 // Criar uma nova volta
 async function criarVolta(req, res) {
   try {
