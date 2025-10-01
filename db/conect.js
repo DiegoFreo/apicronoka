@@ -32,8 +32,8 @@ async function conectarDB() {
       console.log('Nova conexão MongoDB estabelecida.');
       return mongoose;
     }).catch(err => {
-      cached.promise = null; // Reseta a promise em caso de erro
       console.error('Erro ao conectar ao MongoDB:', err);
+      cached.promise = null; // Reseta a promise em caso de erro      
       throw err;
     });
   }
