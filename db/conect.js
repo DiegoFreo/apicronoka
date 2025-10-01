@@ -25,9 +25,6 @@ async function conectarDB() {
       maxPoolSize: 5, // Limita o número máximo de conexões no pool
       serverSelectionTimeoutMS: 30000, // Tempo limite para seleção do servidor
       socketTimeoutMS: 45000, // Tempo limite para o socket
-      autoIndex: true, // Cria índices automaticamente (útil para desenvolvimento)
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       minPoolSize: 1, // Mantém pelo menos uma conexão aberta
     };
 
@@ -36,6 +33,7 @@ async function conectarDB() {
       return mongoose;
     }).catch(err => {
       cached.promise = null; // Reseta a promise em caso de erro
+      console.error('Erro ao conectar ao MongoDB:', err);
       throw err;
     });
   }
