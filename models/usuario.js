@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
-
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const UsuarioSchema = new mongoose.Schema({
     nameUser: { type: String, required: true },

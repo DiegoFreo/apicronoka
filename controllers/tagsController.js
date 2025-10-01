@@ -1,6 +1,4 @@
-import Tag from '../models/tags.js';
-
-//const Tag   = require('../models/tags');
+const Tag   = require('../models/tags');
 // Criar uma nova tag
 async function criarTag(req, res) {
     try {

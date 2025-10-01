@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
-
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const BateriaSchema = new mongoose.Schema({
     nome: { type: String, required: true },

@@ -1,7 +1,4 @@
-import express from 'express';
-
-const rotas = express.Router();
-//const rotas = require('express').Router();
+const rotas = require('express').Router();
 
 const { criarCategoria, listarCategorias, atualizarCategoria, deletarCategoria } = require('../controllers/categoriaController');
 // Rotas para Categoria

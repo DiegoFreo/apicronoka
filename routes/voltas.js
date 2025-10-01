@@ -1,8 +1,4 @@
-import express from 'express';
-
-const rotas = express.Router();
-
-//const rotas = require('express').Router();
+const rotas = require('express').Router();
 
 const { criarVolta, listarVoltas, obterVoltasPorPiloto, obterVoltasPorBateria } = require('../controllers/voltaController');
 rotas.post('/voltas', criarVolta);

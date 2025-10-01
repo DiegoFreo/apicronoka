@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
-
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const VoltaSchema = new mongoose.Schema({
     pilotoId: { type: mongoose.Schema.Types.ObjectId, ref: 'Piloto' },

@@ -1,63 +1,54 @@
 
-// db/conect.js (Otimização Serverless)
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-global.mongoose = global.mongoose || { conn: null, promise: null };
+global.mongoose = mongoose || {conn:null, promise: null}; // Torna mongoose globalmente acessível
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-// ... (Restante do código de verificação MONGODB_URI) ...
-
-async function conectarDB() {
-    const cached = global.mongoose;
-
-    if (cached.conn) {
-        return cached.conn;
-    }
-
-    if (!cached.promise) {
-        const opts = {
-            // 🚨 ESSENCIAL 1: Desabilita o buffering de comandos
-            bufferCommands: false,
-            
-            // 🚨 ESSENCIAL 2: Aumenta o tempo para encontrar o servidor (30 segundos)
-            // Resolve Cold Starts lentos e problemas de DNS.
-            serverSelectionTimeoutMS: 30000, 
-            
-            // 🚨 ESSENCIAL 3: Aumenta o tempo máximo para inatividade do socket (45 segundos)
-            socketTimeoutMS: 45000, 
-            
-            // Pool de Conexões Pequeno para Serverless
-            maxPoolSize: 5, 
-            minPoolSize: 1, 
-            
-            // Opcional: Garante o keepAlive para reutilização de socket, embora padrão.
-            // keepAlive: true, 
-        };
-
-        cached.promise = mongoose.connect(MONGODB_URI, opts)
-            .then((_mongoose) => {
-                console.log('✅ Conexão MongoDB Atlas estabelecida.');
-                return _mongoose;
-            })
-            .catch((error) => {
-                global.mongoose.promise = null;
-                // Loga o erro real antes do timeout
-                console.error('❌ ERRO CRÍTICO DB:', error.message); 
-                throw error;
-            });
-    }
-
-    try {
-        cached.conn = await cached.promise;
-    } catch (e) {
-        throw e;
-    }
-
-    return cached.conn;
+if (!MONGODB_URI) {
+  throw new Error(
+    'Por favor, defina a variável de ambiente MONGODB_URI. ' +
+    'Ela deve estar no formato: mongodb+srv://<user>:<password>@<cluster-url>/<db-name>?retryWrites=true&w=majority'
+  );
 }
 
-module.exports = conectarDB;
+async function conectarDB() {
+  const cached = global.mongoose;
+  if (cached.conn) {
+    console.log('Utilizando conexão MongoDB cacheada.');
+    return cached.conn;
+  }
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      maxPoolSize: 5, // Limita o número máximo de conexões no pool
+      serverSelectionTimeoutMS: 30000, // Tempo limite para seleção do servidor
+      socketTimeoutMS: 45000, // Tempo limite para o socket
+      minPoolSize: 1, // Mantém pelo menos uma conexão aberta
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('Nova conexão MongoDB estabelecida.');
+      return mongoose;
+    }).catch(err => {
+      cached.promise = null; // Reseta a promise em caso de erro
+      console.error('Erro ao conectar ao MongoDB:', err);
+      throw err;
+    });
+  }
+
+try {
+    cached.conn = await cached.promise;
+  } catch (err) {
+    cached.promise = null; // Reseta a promise em caso de erro
+    throw err;
+  }
+  return cached.conn;
+  
+}
+
+module.exports = conectarDB();
 
 
 /*

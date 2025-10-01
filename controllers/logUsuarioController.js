@@ -1,6 +1,4 @@
-import LogUsuario from '../models/logusuario.js';
-
-//const LogUsuario = require('../models/logusuario');
+const LogUsuario = require('../models/logusuario');
 // Criar um novo log de usuário
 async function criarLogUsuario(req, res) {
     try {

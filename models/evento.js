@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
-
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const EventoSchema = new mongoose.Schema({
     nome_evento: { type: String, required: true },

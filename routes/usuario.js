@@ -1,6 +1,5 @@
-import express from 'express';
 
-const rotas = express.Router();
+const rotas = require('express').Router();
 const { criarUsuario, listarUsuarios, atualizarUsuario, deletarUsuario, loginUsuario } = require('../controllers/usuarioController');
 // Rotas para Usuário
 rotas.post('/usuario', criarUsuario);

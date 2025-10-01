@@ -1,6 +1,4 @@
-import Piloto from '../models/piloto.js';
-
-//const Piloto = require('../models/piloto');
+const Piloto = require('../models/piloto');
 
 // Criar um novo piloto
 async function criarPiloto(req, res) {

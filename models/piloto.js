@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
-
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const PilotoSchema = new mongoose.Schema({
     nome: { type: String, required: true },

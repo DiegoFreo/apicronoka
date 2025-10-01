@@ -1,6 +1,4 @@
-import Evento from '../models/evento.js';
-
-//const Evento = require('../models/evento');
+const Evento = require('../models/evento');
 // Criar um novo evento
 async function criarEvento(req, res) {
     try {
