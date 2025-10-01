@@ -79,11 +79,11 @@ app.use(async (req, res, next) => {
 app.use('/api', routes);
 
 
-
+/*
 app.listen(3030, () => {
   console.log('Server running on port 3030');
 });
-
+*/
 
 
 module.exports = serverless(app);
