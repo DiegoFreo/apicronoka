@@ -23,7 +23,11 @@ async function conectarDB() {
     const opts = {
       bufferCommands: false,
       maxPoolSize: 5, // Limita o número máximo de conexões no pool
-      serverSelectionTimeoutMS: 5000, // Tempo limite para seleção do servidor
+      serverSelectionTimeoutMS: 30000, // Tempo limite para seleção do servidor
+      socktTimeoutMS: 45000, // Tempo limite para o socket
+      autoIndex: true, // Cria índices automaticamente (útil para desenvolvimento)
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       minPoolSize: 1, // Mantém pelo menos uma conexão aberta
     };
 

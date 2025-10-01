@@ -61,12 +61,8 @@ const app = express();
 // Importa as rotas
 const routes = require('./routes/routes');
 
-
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
-
-
-
 
 app.use(async (req, res, next) => {
   
@@ -79,15 +75,16 @@ app.use(async (req, res, next) => {
     }
   next();
 });
+
 app.use('/api', routes);
 
 
-/*
+
 app.listen(3030, () => {
   console.log('Server running on port 3030');
 });
 
-*/
+
 
 module.exports = serverless(app);
 
