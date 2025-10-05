@@ -1,4 +1,4 @@
-
+/*
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -49,15 +49,14 @@ try {
 }
 
 module.exports = conectarDB;
+*/
 
-
-/*
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 let isConnected = false;
 
-async function main() {
+const conectarDB = async()=> {
   if (!process.env.MONGODB_URI) {
     console.error('MONGODB_URI não está definida');
     return null;
@@ -79,6 +78,6 @@ async function main() {
   }
 }
 
-module.exports = main();
-*/
+module.exports =  conectarDB;
+
 
