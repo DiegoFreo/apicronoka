@@ -108,6 +108,7 @@ const conectarDB = async () => {
       serverSelectionTimeoutMS: 10000,
       stricQuery: true,      
     };
+     
 
     cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
       console.log('✅ MongoDB conectado');
@@ -115,6 +116,7 @@ const conectarDB = async () => {
     });
   }
 
+  await mongoose.connection.db.admin().command({ ping: 1 });
   cached.conn = await cached.promise;
   return cached.conn;
 };
