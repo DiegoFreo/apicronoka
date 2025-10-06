@@ -121,6 +121,20 @@ app.use(express.json({ limit: '1mb' }));
 // Rotas
 app.use('/api', routes);
 
+app.get('/ping', async (req, res) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(500).json({ status: 'disconnected' });
+    }
+
+    // Faz um "ping" direto ao banco
+    const result = await mongoose.connection.db.admin().command({ ping: 1 });
+    res.json({ status: 'ok', result });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+});
+
 // Exporta para a Vercel
 module.exports = serverless(app);
 

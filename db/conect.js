@@ -115,10 +115,9 @@ const conectarDB = async () => {
       console.log('✅ MongoDB conectado');
       return mongoose;
     });
-
   }
 
-  
+    
   cached.conn = await cached.promise;
   
   return cached.conn;
