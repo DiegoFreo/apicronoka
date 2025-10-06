@@ -47,7 +47,7 @@ require('./models/categoria');
 require('./models/evento');
 require('./models/bateria');
 require('./models/volta');
-*/
+
 
 // Carrega as variáveis de ambiente do arquivo .env
 require('dotenv').config();
@@ -75,7 +75,7 @@ app.use(async (req, res, next) => {
     }
   next();
 });
-*/
+
 (async () => {
     try {
         await conectarDB();
@@ -92,8 +92,35 @@ app.use('/api', routes);
 app.listen(3030, () => {
   console.log('Server running on port 3030');
 });
+
+
+
+module.exports = serverless(app);
 */
 
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const serverless = require('serverless-http');
+const conectarDB = require('./db/conect');
+const routes = require('./routes/routes');
 
+const app = express();
+app.use(cors());
+app.use(express.json({ limit: '1mb' }));
+
+// Conecta antes de lidar com requisições
+(async () => {
+  try {
+    await conectarDB();
+  } catch (error) {
+    console.error('❌ Erro ao conectar ao banco:', error);
+  }
+})();
+
+// Rotas
+app.use('/api', routes);
+
+// Exporta para a Vercel
 module.exports = serverless(app);
 
