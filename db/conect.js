@@ -105,7 +105,8 @@ const conectarDB = async () => {
     const opts = {
       bufferCommands: false,
       connectTimeoutMS: 10000, // 10 segundos
-      serverSelectionTimeoutMS: 10000
+      serverSelectionTimeoutMS: 10000,
+      stricQuery: true,      
     };
 
     cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
