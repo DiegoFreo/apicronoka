@@ -134,6 +134,11 @@ app.get('/ping', async (req, res) => {
     res.status(500).json({ status: 'error', message: error.message });
   }
 });
+/*
+app.listen(3030, () => {
+  console.log('Server running on port 3030');
+});
+*/
 
 // Exporta para a Vercel
 module.exports = serverless(app);

@@ -104,8 +104,8 @@ const conectarDB = async () => {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      connectTimeoutMS: 10000, // 10 segundos
-      serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 500000, // 10 segundos
+      serverSelectionTimeoutMS: 500000,
       stricQuery: true,      
     };
     const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
