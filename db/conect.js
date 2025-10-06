@@ -108,17 +108,19 @@ const conectarDB = async () => {
       serverSelectionTimeoutMS: 10000,
       stricQuery: true,      
     };
+    const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
      
-
-    cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
+    //await mongoose.connection.db.admin().command({ ping: 1 });
+    cached.promise = mongoose.connect(process.env.MONGODB_URI, clientOptions).then((mongoose) => {
       console.log('✅ MongoDB conectado');
       return mongoose;
     });
+
   }
 
   
   cached.conn = await cached.promise;
-  await mongoose.connection.db.admin().command({ ping: 1 });
+  
   return cached.conn;
 };
 
