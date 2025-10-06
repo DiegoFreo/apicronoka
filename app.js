@@ -63,6 +63,7 @@ const routes = require('./routes/routes');
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 
+/*
 app.use(async (req, res, next) => {
   
     try {
@@ -74,6 +75,16 @@ app.use(async (req, res, next) => {
     }
   next();
 });
+*/
+(async () => {
+    try {
+        await conectarDB();
+        console.log('Banco de dados conectado');
+    } catch (err) {
+        console.error('Erro ao conectar ao banco de dados', err);
+        process.exit(1);
+    }
+})();
 
 app.use('/api', routes);
 
