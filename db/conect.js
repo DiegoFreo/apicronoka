@@ -116,8 +116,9 @@ const conectarDB = async () => {
     });
   }
 
-  await mongoose.connection.db.admin().command({ ping: 1 });
+  
   cached.conn = await cached.promise;
+  await mongoose.connection.db.admin().command({ ping: 1 });
   return cached.conn;
 };
 
